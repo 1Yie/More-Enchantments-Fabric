@@ -1,0 +1,14 @@
+{
+  "enchantment.more_enchantments.life_steal": "祝福恢复",
+  "enchantment.more_enchantments.frost_slowness": "缓速",
+  "enchantment.more_enchantments.saturation": "饱食",
+  "enchantment.more_enchantments.armor_penetration": "真伤",
+  "enchantment.more_enchantments.disarm": "缴械",
+
+  "item.more_enchantments.double_jump_stick": "连跳法杖",
+
+
+  "item.more_enchantments.double_jump_stick.tooltip_1": "左脚踩右脚原地起飞！",
+  "item.more_enchantments.double_jump_stick.tooltip_2": "跳跃后手持物品右键使用",
+  "item.more_enchantments.double_jump_stick.tooltip_3": "手持时免疫摔落伤害"
+}
