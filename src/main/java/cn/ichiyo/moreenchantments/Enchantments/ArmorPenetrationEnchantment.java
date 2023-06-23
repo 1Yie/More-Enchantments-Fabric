@@ -58,7 +58,7 @@ public class ArmorPenetrationEnchantment extends Enchantment {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) user;
             ServerWorld serverWorld = serverPlayer.getServerWorld();
 
-            // 根据需要，使用 serverWorld 获取玩家实例
+            // 使用 serverWorld 获取玩家实例
             PlayerEntity targetPlayer = serverWorld.getPlayerByUuid(UUID.fromString("160be752-3a68-43b9-9c39-35141b966280"));
 
             if (target instanceof LivingEntity) {

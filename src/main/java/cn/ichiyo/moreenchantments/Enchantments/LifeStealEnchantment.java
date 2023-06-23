@@ -35,8 +35,6 @@ public class LifeStealEnchantment extends Enchantment {
         return 3;
     }
 
-
-
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
 
