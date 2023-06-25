@@ -35,7 +35,6 @@ public class SaturationEnchantment extends Enchantment {
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
         if (user instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) user;
-            // 恢复玩家的饱食度
             Random random = new Random();
             if (level == 1) {
                 int isTure = 1;

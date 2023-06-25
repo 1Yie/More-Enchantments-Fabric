@@ -1,12 +1,14 @@
 package cn.ichiyo.moreenchantments;
 
-import cn.ichiyo.moreenchantments.Enchantments.DamageModInitializer.DamageData;
+import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -14,6 +16,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 
 public class MoreEnchantments implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("more-enchantments");
@@ -31,6 +35,15 @@ public class MoreEnchantments implements ModInitializer {
 			}
 
 			return ActionResult.PASS;
+		});
+
+		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+		});
+
+		ServerPlayerEvents.AFTER_RESPAWN.register((player, oldPlayer, alive) -> {
+		});
+
+		ServerPlayerEvents.COPY_FROM.register((original, cloned, lossless) -> {
 		});
 
 		ItemRegister.register();

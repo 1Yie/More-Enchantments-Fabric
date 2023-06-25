@@ -1,4 +1,4 @@
-package cn.ichiyo.moreenchantments.Enchantments;
+package cn.ichiyo.moreenchantments.Enchantments.ModInitializer;
 
 import java.util.UUID;
 

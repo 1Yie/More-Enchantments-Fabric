@@ -32,12 +32,9 @@ public class DisarmEnchantment extends Enchantment {
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
         if (user instanceof PlayerEntity && target instanceof LivingEntity targetEntity && !(target instanceof PlayerEntity)) {
-
-            // 检查对方手持物品
             ItemStack heldItem = targetEntity.getMainHandStack();
 
             if (!heldItem.isEmpty()) {
-                // if (user.getRandom().nextFloat() < 0.2f) 有百分之二十的概率使对方掉落物品
                 ItemEntity itemEntity = new ItemEntity(targetEntity.getWorld(),
                         targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(), heldItem.copy());
                 targetEntity.getWorld().spawnEntity(itemEntity);

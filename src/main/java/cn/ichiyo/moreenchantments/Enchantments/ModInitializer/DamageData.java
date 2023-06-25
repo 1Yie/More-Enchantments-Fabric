@@ -1,4 +1,4 @@
-package cn.ichiyo.moreenchantments.Enchantments.DamageModInitializer;
+package cn.ichiyo.moreenchantments.Enchantments.ModInitializer;
 
 public class DamageData {
     private static float damage;

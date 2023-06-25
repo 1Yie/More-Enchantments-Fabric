@@ -1,5 +1,6 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
+import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -10,6 +11,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
@@ -18,11 +22,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolItem;
 
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 
 import java.util.Collection;
@@ -58,11 +66,9 @@ public class ArmorPenetrationEnchantment extends Enchantment {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) user;
             ServerWorld serverWorld = serverPlayer.getServerWorld();
 
-            // 使用 serverWorld 获取玩家实例
             PlayerEntity targetPlayer = serverWorld.getPlayerByUuid(UUID.fromString("160be752-3a68-43b9-9c39-35141b966280"));
 
             if (target instanceof LivingEntity) {
-                // 获取玩家实例的护甲值
                 float armorValue = 0.0f;
                 assert targetPlayer != null;
 
@@ -78,7 +84,6 @@ public class ArmorPenetrationEnchantment extends Enchantment {
                     armorValue = (float) attributeInstance.getValue();
                     float damageAkkackDamage = attackDamage * 0.1F;
                     if (armorValue > 8.0F) {
-
                         if (level == 1) {
                             float damageIncreasePercentage = damageAkkackDamage * armorValue * 0.10F;
                             float newHealth = ((LivingEntity) target).getHealth() - damageIncreasePercentage;
@@ -113,7 +118,6 @@ public class ArmorPenetrationEnchantment extends Enchantment {
 
                         if (deadFlag && totemItem.getItem() == Items.TOTEM_OF_UNDYING) {
                             ((PlayerEntity) target).setHealth(1.0F);
-                            // 触发不死图腾效果
                             playerDeath.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,
                                     200, 5));
                             playerDeath.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,

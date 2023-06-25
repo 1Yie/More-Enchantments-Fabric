@@ -1,15 +1,12 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
 
-import cn.ichiyo.moreenchantments.Enchantments.DamageModInitializer.DamageData;
-import cn.ichiyo.moreenchantments.MoreEnchantments;
+import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 

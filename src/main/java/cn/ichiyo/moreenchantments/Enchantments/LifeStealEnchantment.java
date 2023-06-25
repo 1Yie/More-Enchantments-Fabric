@@ -54,7 +54,6 @@ public class LifeStealEnchantment extends Enchantment {
                     user.heal(healAmount);
                 }
 
-                // 幸运选择 Luck Time！
                 if (level == 1) {
                     int isTrue = 1;
                     int tag = random.nextInt(100) + 1;
