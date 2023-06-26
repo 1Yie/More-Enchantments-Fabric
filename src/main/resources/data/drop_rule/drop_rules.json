@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "block": "minecraft:iron_ore",
+      "drop": "minecraft:diamond"
+    },
+    {
+      "block": "minecraft:iron_ore",
+      "drop": "minecraft:diamond"
+    },
+    {
+      "block": "minecraft:iron_ore",
+      "drop": "minecraft:diamond"
+    },
+    {
+      "block": "minecraft:iron_ore",
+      "drop": "minecraft:diamond"
+    },
+    {
+      "block": "minecraft:iron_ore",
+      "drop": "minecraft:diamond"
+    }
+  ]
+}
