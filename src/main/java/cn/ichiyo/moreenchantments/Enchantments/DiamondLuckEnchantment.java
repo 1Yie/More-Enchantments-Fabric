@@ -3,6 +3,9 @@ package cn.ichiyo.moreenchantments.Enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
+
 
 public class DiamondLuckEnchantment extends Enchantment {
     protected DiamondLuckEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
@@ -22,6 +25,10 @@ public class DiamondLuckEnchantment extends Enchantment {
     @Override
     public int getMaxLevel() {
         return 4;
+    }
+
+    public boolean isAcceptableItem(ItemStack stack) {
+        return stack.getItem() instanceof PickaxeItem;
     }
 
 }
