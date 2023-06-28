@@ -1,6 +1,5 @@
 package cn.ichiyo.moreenchantments;
 
-import cn.ichiyo.moreenchantments.Enchantments.DiamondLuckEnchantment;
 import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
@@ -8,8 +7,10 @@ import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -17,20 +18,22 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class MoreEnchantments implements ModInitializer {
@@ -41,6 +44,9 @@ public class MoreEnchantments implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        ItemRegister.register();
+        ModEnchantments.registerEnchantments();
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {
@@ -94,10 +100,46 @@ public class MoreEnchantments implements ModInitializer {
         ServerPlayerEvents.COPY_FROM.register((original, cloned, lossless) -> {
         });
 
-        ItemRegister.register();
-        ModEnchantments.registerEnchantments();
+        UseItemCallback.EVENT.register((player, world, hand) -> {
+            return TypedActionResult.pass(player.getStackInHand(hand));
+        });
+
+        ServerTickEvents.START_WORLD_TICK.register(world -> {
+
+            List<ServerPlayerEntity> players = world.getPlayers();
+            for (ServerPlayerEntity player : players) {
+                updatePlayerHealth(player);
+                break;
+            }
+        });
     }
 
+    public void updatePlayerHealth(ServerPlayerEntity player) {
+        boolean isTrue = false;
+        AtomicInteger enchantmentLevel = new AtomicInteger(0);
+        double ADD_HEALTH = 0.0F;
+        for (ItemStack stack : player.getInventory().armor) {
+            if (stack.getItem() instanceof ArmorItem) {
+                ArmorItem armorItem = (ArmorItem) stack.getItem();
+                int level = EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, stack);
+                if (level > 0) {
+                    isTrue = true;
+                    ADD_HEALTH += 20.0F + (level * 2) * 2;
+                    enchantmentLevel.set(level);
+                }
+            }
+        }
+        if (isTrue) {
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(ADD_HEALTH);
+        } else {
+            double defaultMaxHealth = 20.0F;
+            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(defaultMaxHealth);
+
+            if (player.getHealth() > defaultMaxHealth) {
+                player.setHealth((float) defaultMaxHealth);
+            }
+        }
+    }
 
     private static void dropDiamond(World world, BlockPos pos) {
         ItemStack diamondStack = new ItemStack(Items.DIAMOND);
