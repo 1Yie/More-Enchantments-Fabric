@@ -5,7 +5,6 @@ import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import cn.ichiyo.moreenchantments.Items.ModItemGroup;
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -16,7 +15,6 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -30,7 +28,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.tick.WorldTickScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,23 +117,6 @@ public class MoreEnchantments implements ModInitializer {
             }
         });
 
-        ServerTickEvents.START_SERVER_TICK.register(server -> {
-            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                // 检查玩家装备的鞋子是否有添加了二段跳附魔
-                ItemStack feetArmor = player.getEquippedStack(EquipmentSlot.FEET);
-                int enchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, feetArmor);
-                if (enchantmentLevel > 0) {
-                    boolean isJump = false;
-                    if (!player.isOnGround() && player.isRemoved()) {
-                        if (!isJump) {
-                            // 玩家在空中且进行了跳跃操作，执行二段跳
-                            System.out.println("On Sky!");
-                            player.jump();
-                        }
-                    }
-                }
-            }
-        });
     }
 
 
