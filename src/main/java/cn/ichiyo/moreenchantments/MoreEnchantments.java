@@ -78,6 +78,13 @@ public class MoreEnchantments implements ModInitializer {
         // Lapis Lazuli
         DIAMOND_DROP_BLOCKS.add(Blocks.LAPIS_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_LAPIS_ORE);
+        // Emerald
+        DIAMOND_DROP_BLOCKS.add(Blocks.EMERALD_ORE);
+        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_EMERALD_ORE);
+        // Nether Quartz
+        DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_QUARTZ_ORE);
+        // Ancient Debris
+        DIAMOND_DROP_BLOCKS.add(Blocks.ANCIENT_DEBRIS);
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             ItemStack mainHandStack = player.getMainHandStack();
