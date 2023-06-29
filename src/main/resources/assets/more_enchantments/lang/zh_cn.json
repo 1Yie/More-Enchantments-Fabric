@@ -8,8 +8,11 @@
   "enchantment.more_enchantments.diamond_luck": "钻石无处不在",
   "enchantment.more_enchantments.health_boost_armor": "生机勃勃",
 
+
   "item.more_enchantments.double_jump_stick": "连跳法杖",
 
+
+  "itemgroup.enchantments": "更多附魔 - 附属",
 
   "item.more_enchantments.double_jump_stick.tooltip_1": "左脚踩右脚原地起飞！",
   "item.more_enchantments.double_jump_stick.tooltip_2": "跳跃后手持物品右键使用",

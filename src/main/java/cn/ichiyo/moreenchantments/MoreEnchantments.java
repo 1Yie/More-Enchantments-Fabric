@@ -4,6 +4,8 @@ import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
+import cn.ichiyo.moreenchantments.Items.ModItemGroup;
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -14,6 +16,8 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,13 +30,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.WorldTickScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -47,6 +49,7 @@ public class MoreEnchantments implements ModInitializer {
 
         ItemRegister.register();
         ModEnchantments.registerEnchantments();
+        ModItemGroup.register();
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {
@@ -100,10 +103,14 @@ public class MoreEnchantments implements ModInitializer {
         ServerPlayerEvents.COPY_FROM.register((original, cloned, lossless) -> {
         });
 
+
+
         UseItemCallback.EVENT.register((player, world, hand) -> {
+            if (player instanceof ServerPlayerEntity) {
+                checkEnchantmentAndPerformDoubleJump(player);
+            }
             return TypedActionResult.pass(player.getStackInHand(hand));
         });
-
         ServerTickEvents.START_WORLD_TICK.register(world -> {
 
             List<ServerPlayerEntity> players = world.getPlayers();
@@ -112,9 +119,28 @@ public class MoreEnchantments implements ModInitializer {
                 break;
             }
         });
+
+        ServerTickEvents.START_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                // 检查玩家装备的鞋子是否有添加了二段跳附魔
+                ItemStack feetArmor = player.getEquippedStack(EquipmentSlot.FEET);
+                int enchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, feetArmor);
+                if (enchantmentLevel > 0) {
+                    boolean isJump = false;
+                    if (!player.isOnGround() && player.isRemoved()) {
+                        if (!isJump) {
+                            // 玩家在空中且进行了跳跃操作，执行二段跳
+                            System.out.println("On Sky!");
+                            player.jump();
+                        }
+                    }
+                }
+            }
+        });
     }
 
-    public void updatePlayerHealth(ServerPlayerEntity player) {
+
+    private static void updatePlayerHealth(ServerPlayerEntity player) {
         boolean isTrue = false;
         AtomicInteger enchantmentLevel = new AtomicInteger(0);
         double ADD_HEALTH = 0.0F;
@@ -137,6 +163,20 @@ public class MoreEnchantments implements ModInitializer {
 
             if (player.getHealth() > defaultMaxHealth) {
                 player.setHealth((float) defaultMaxHealth);
+            }
+        }
+    }
+
+
+    public void checkEnchantmentAndPerformDoubleJump(PlayerEntity player) {
+        ItemStack itemStack = player.getEquippedStack(EquipmentSlot.MAINHAND);
+
+        if (itemStack.getItem() instanceof ArmorItem) {
+            ArmorItem armorItem = (ArmorItem) itemStack.getItem();
+            if (EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, itemStack) > 0) {
+                if (!player.isOnGround() && !player.isFallFlying()) {
+                    player.setVelocity(player.getVelocity().add(0, 0.5, 0));
+                }
             }
         }
     }

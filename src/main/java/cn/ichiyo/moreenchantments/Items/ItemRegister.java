@@ -15,18 +15,9 @@ public class ItemRegister {
     //  public static final Item DOUBLE_JUMP_ITEM = new DoubleJumpEnchantmentBook(new FabricItemSettings());
     public static final Item DOUBLE_JUMP_ITEM = new DoubleJumpItem(new Item.Settings());
 
-    public static void addItemsToItemGroup() {
-        addItemGroup(ItemGroups.INGREDIENTS, DOUBLE_JUMP_ITEM);
-
-    }
-
-    private static void addItemGroup(RegistryKey<ItemGroup> group, Item item) {
-        ItemGroupEvents.modifyEntriesEvent(group).register(entries -> entries.add(item));
-    }
 
     public static void register() {
         Registry.register(Registries.ITEM, new Identifier(MoreEnchantments.MOD_ID, "double_jump_stick"), DOUBLE_JUMP_ITEM);
 
-        addItemsToItemGroup();
     }
 }

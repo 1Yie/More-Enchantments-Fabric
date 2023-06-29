@@ -41,7 +41,7 @@ public class SaturationEnchantment extends Enchantment {
                 int tag = random.nextInt(5) + 1;
                 if (tag == isTure) {
                     HungerManager hungerManager = player.getHungerManager();
-                    hungerManager.add(1, 0.5f);
+                    hungerManager.add(2, 0.5F);
                 }
             }
         }
