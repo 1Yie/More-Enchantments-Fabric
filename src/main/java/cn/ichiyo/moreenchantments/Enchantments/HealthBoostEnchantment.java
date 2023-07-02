@@ -1,6 +1,7 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.LiteralTextContent;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.tick.WorldTickScheduler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HealthBoostEnchantment extends Enchantment {
 
@@ -40,4 +50,18 @@ public class HealthBoostEnchantment extends Enchantment {
         return 5;
     }
 
+    @Override
+    public Text getName(int level) {
+        MutableText mutableText = Text.translatable(this.getTranslationKey());
+        if (this.isCursed()) {
+            mutableText.formatted(Formatting.RED);
+        } else {
+            mutableText.formatted(Formatting.GRAY);
+        }
+        if (level != 1 || this.getMaxLevel() != 1) {
+            mutableText.append(ScreenTexts.SPACE).append(Text.translatable("enchantment.level." + level));
+        }
+        mutableText.append(ScreenTexts.SPACE).append(Text.translatable( "enchantment.health_boost.mutable_text_1"));
+        return mutableText;
+    }
 }

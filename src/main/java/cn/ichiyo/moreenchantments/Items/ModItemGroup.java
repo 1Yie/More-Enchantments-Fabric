@@ -1,12 +1,8 @@
 package cn.ichiyo.moreenchantments.Items;
 
-import cn.ichiyo.moreenchantments.Enchantments.ArmorPenetrationEnchantment;
-import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

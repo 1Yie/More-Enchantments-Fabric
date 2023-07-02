@@ -3,8 +3,11 @@ package cn.ichiyo.moreenchantments;
 import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
+import cn.ichiyo.moreenchantments.Items.EnchantmentBookGuide;
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import cn.ichiyo.moreenchantments.Items.ModItemGroup;
+import com.mojang.brigadier.ParseResults;
+import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -19,10 +22,15 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
@@ -30,7 +38,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Text;
 
+import javax.crypto.spec.PSource;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,7 +53,7 @@ public class MoreEnchantments implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
+        EnchantmentBookGuide.nbtR();
         ItemRegister.register();
         ModEnchantments.registerEnchantments();
         ModItemGroup.register();
@@ -123,9 +133,7 @@ public class MoreEnchantments implements ModInitializer {
                 break;
             }
         });
-
     }
-
 
     private static void updatePlayerHealth(ServerPlayerEntity player) {
         boolean isTrue = false;

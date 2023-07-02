@@ -12,7 +12,7 @@ public class ModEnchantments {
     public static final Identifier LIFE_STEAL_ID = new Identifier(MoreEnchantments.MOD_ID, "life_steal");
     public static final Identifier FROST_SLOWNESS_ID = new Identifier(MoreEnchantments.MOD_ID, "frost_slowness");
     public static final Identifier SATURATION_ID = new Identifier(MoreEnchantments.MOD_ID, "saturation");
-    public static final Identifier ARMOR_PENETRATION_ID = new Identifier(MoreEnchantments.MOD_ID,"armor_penetration");
+    public static final Identifier SOUL_PENETRATION_ID = new Identifier(MoreEnchantments.MOD_ID,"soul_penetration");
     public static final Identifier DISARM_ID = new Identifier(MoreEnchantments.MOD_ID, "disarm");
     public static final Identifier LEECH_ID = new Identifier(MoreEnchantments.MOD_ID, "leech");
     public static final Identifier DIAMOND_LUCK_ID = new Identifier(MoreEnchantments.MOD_ID, "diamond_luck");
@@ -24,7 +24,7 @@ public class ModEnchantments {
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     public static final Enchantment SATURATION = new SaturationEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
-    public static final Enchantment ARMOR_PENETRATION = new ArmorPenetrationEnchantment(Enchantment.Rarity.RARE,
+    public static final Enchantment SOUL_PENETRATION = new SoulPenetrationEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     public static final Enchantment DISARM = new DisarmEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
@@ -39,7 +39,7 @@ public class ModEnchantments {
         Registry.register(Registries.ENCHANTMENT, LIFE_STEAL_ID, LIFE_STEAL);
         Registry.register(Registries.ENCHANTMENT, FROST_SLOWNESS_ID, FROST_SLOWNESS);
         Registry.register(Registries.ENCHANTMENT, SATURATION_ID, SATURATION);
-        Registry.register(Registries.ENCHANTMENT, ARMOR_PENETRATION_ID, ARMOR_PENETRATION);
+        Registry.register(Registries.ENCHANTMENT, SOUL_PENETRATION_ID, SOUL_PENETRATION);
         Registry.register(Registries.ENCHANTMENT, DISARM_ID, DISARM);
         Registry.register(Registries.ENCHANTMENT, LEECH_ID, LEECH);
         Registry.register(Registries.ENCHANTMENT, DIAMOND_LUCK_ID, DIAMOND_LUCK);
