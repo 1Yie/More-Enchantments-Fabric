@@ -36,8 +36,8 @@ public class DisarmEnchantment extends Enchantment {
             ItemStack heldItem = targetEntity.getMainHandStack();
 
             if (!heldItem.isEmpty()) {
-                ItemEntity itemEntity = new ItemEntity(targetEntity.getWorld()
-                        , targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(), heldItem.copy());
+                ItemEntity itemEntity = new ItemEntity(targetEntity.getWorld(),
+                        targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(), heldItem.copy());
                 targetEntity.getWorld().spawnEntity(itemEntity);
                 heldItem.setCount(0);
             }
