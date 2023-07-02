@@ -31,17 +31,15 @@ public class DisarmEnchantment extends Enchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if (user instanceof PlayerEntity && target instanceof LivingEntity targetEntity && !(target instanceof PlayerEntity)) {
+        if (user instanceof PlayerEntity && target instanceof LivingEntity targetEntity
+                && !(target instanceof PlayerEntity) && !(target instanceof VillagerEntity)) {
             ItemStack heldItem = targetEntity.getMainHandStack();
 
             if (!heldItem.isEmpty()) {
-                ItemEntity itemEntity = new ItemEntity(targetEntity.getWorld(),
-                        targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(), heldItem.copy());
+                ItemEntity itemEntity = new ItemEntity(targetEntity.getWorld()
+                        , targetEntity.getX(), targetEntity.getY(), targetEntity.getZ(), heldItem.copy());
                 targetEntity.getWorld().spawnEntity(itemEntity);
-
-                if (!(target instanceof VillagerEntity)){
-                    heldItem.setCount(0);
-                }
+                heldItem.setCount(0);
             }
         }
     }

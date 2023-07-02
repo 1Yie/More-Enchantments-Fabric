@@ -49,19 +49,4 @@ public class HealthBoostEnchantment extends Enchantment {
     public int getMaxLevel() {
         return 5;
     }
-
-    @Override
-    public Text getName(int level) {
-        MutableText mutableText = Text.translatable(this.getTranslationKey());
-        if (this.isCursed()) {
-            mutableText.formatted(Formatting.RED);
-        } else {
-            mutableText.formatted(Formatting.GRAY);
-        }
-        if (level != 1 || this.getMaxLevel() != 1) {
-            mutableText.append(ScreenTexts.SPACE).append(Text.translatable("enchantment.level." + level));
-        }
-        mutableText.append(ScreenTexts.SPACE).append(Text.translatable( "enchantment.health_boost.mutable_text_1"));
-        return mutableText;
-    }
 }
