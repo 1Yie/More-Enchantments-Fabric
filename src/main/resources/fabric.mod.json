@@ -3,9 +3,9 @@
 	"id": "more-enchantments",
 	"version": "${version}",
 	"name": "More Enchantments",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Add more enchantments in Minecraft.",
 	"authors": [
-		"Me!"
+		"ichiyo"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -34,7 +34,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20",
+		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*"

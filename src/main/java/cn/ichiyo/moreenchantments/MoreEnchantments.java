@@ -53,6 +53,7 @@ public class MoreEnchantments implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
         EnchantmentBookGuide.nbtR();
         ItemRegister.register();
         ModEnchantments.registerEnchantments();

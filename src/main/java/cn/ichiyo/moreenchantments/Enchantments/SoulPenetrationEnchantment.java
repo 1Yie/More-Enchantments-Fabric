@@ -70,7 +70,6 @@ public class SoulPenetrationEnchantment extends Enchantment {
                         damageIncreasePercentage = damageAttackDamage * armorValue * 0.25F;
                         break;
                 }
-                System.out.println(damageIncreasePercentage);
                 float newHealth = ((LivingEntity) target).getHealth() - damageIncreasePercentage;
                 ((LivingEntity) target).setHealth(newHealth);
             }
