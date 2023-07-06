@@ -1,5 +1,7 @@
 package cn.ichiyo.moreenchantments.Items;
 
+import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
+import cn.ichiyo.moreenchantments.Blocks.ModBlocks;
 import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -17,6 +19,8 @@ public class ModItemGroup {
                     .icon(() -> new ItemStack(ItemRegister.DOUBLE_JUMP_ITEM))
                     .entries((displayContext, entries) -> {
                         entries.add(ItemRegister.DOUBLE_JUMP_ITEM);
+                        entries.add(ItemRegister.HEALTH_BOX);
+                        entries.add(ModBlocks.HEALTH_BOX_ORE);
                     })
                     .build());
     public static void register() {
