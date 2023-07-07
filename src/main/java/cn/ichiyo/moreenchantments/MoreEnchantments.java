@@ -1,5 +1,7 @@
 package cn.ichiyo.moreenchantments;
 
+import cn.ichiyo.moreenchantments.Biome.ModConfiguredFeatures;
+import cn.ichiyo.moreenchantments.Biome.ModWorldGeneration;
 import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
