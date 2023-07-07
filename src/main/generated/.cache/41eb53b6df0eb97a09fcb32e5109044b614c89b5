@@ -1,3 +1,5 @@
-// 1.20.1	2023-07-07T15:58:25.6950802	More Enchantments/Recipes
+// 1.20.1	2023-07-07T16:58:27.7536792	More Enchantments/Recipes
+bb77c52e75df55ecca3f45647a1f62d28bdf850e data\more-enchantments\advancements\recipes\misc\double_jump_stick.json
 2bce328f8669db4b134baa78fa5b0e129e52aa89 data\more-enchantments\recipes\health_box_from_smelting_health_box.json
 e5bf8c04978e503665222084e833ea845f0ad9a5 data\more-enchantments\advancements\recipes\misc\health_box_from_smelting_health_box.json
+383fce2775bc379d500e682957a1b2f20fb197fb data\more-enchantments\recipes\double_jump_stick.json

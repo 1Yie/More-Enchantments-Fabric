@@ -1,6 +1,5 @@
-// 1.20.1	2023-07-07T15:58:25.6965628	More Enchantments/Model Definitions
+// 1.20.1	2023-07-07T16:58:27.7546791	More Enchantments/Model Definitions
 5564125d9d0432e6ce82f0ba8f2b792b67310328 assets\more_enchantments\models\item\health_box.json
 d3e2dce1c32914299b901f08eddc8c9c5abbfb14 assets\more_enchantments\models\item\double_jump_stick.json
-4fb032246ed8b7f72c23f7c2ea472539f0a147be assets\more_enchantments\models\item\health_box_ore.json
 c86de8f241d132c082ea371b5cb5d03cc384004a assets\more_enchantments\models\block\health_box_ore.json
 91db6fdc282977f42d562a06b9c94f1d01762f4d assets\more_enchantments\blockstates\health_box_ore.json
