@@ -54,6 +54,7 @@ public class MoreEnchantments implements ModInitializer {
         ModEnchantments.registerEnchantments();
         ModItemGroup.register();
         ModBlockRegister.register();
+        ModWorldGeneration.generateModWorldGen();
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {

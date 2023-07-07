@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 300,
+  "experience": 3.0,
+  "group": "health_box",
+  "ingredient": {
+    "item": "more_enchantments:health_box"
+  },
+  "result": "more_enchantments:health_box"
+}

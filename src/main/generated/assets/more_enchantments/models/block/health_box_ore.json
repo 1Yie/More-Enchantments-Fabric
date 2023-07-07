@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "more_enchantments:block/health_box_ore"
+  }
+}
