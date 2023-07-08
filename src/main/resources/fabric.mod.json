@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "more-enchantments",
+	"id": "more_enchantments",
 	"version": "${version}",
 	"name": "More Enchantments",
 	"description": "Add more enchantments in Minecraft.",
@@ -8,10 +8,11 @@
 		"ichiyo"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/1Yie/more-enchantments-template-1.20",
+		"sources": "https://github.com/1Yie/more-enchantments-template-1.20",
+		"issues": "https://github.com/1Yie/more-enchantments-template-1.20/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "GPL-3.0",
 	"icon": "assets/more_enchantments/icon.png",
 	"environment": "*",
 	"entrypoints": {

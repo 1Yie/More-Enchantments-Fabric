@@ -1,12 +1,9 @@
 package cn.ichiyo.moreenchantments;
 
-import cn.ichiyo.moreenchantments.Biome.ModConfiguredFeatures;
 import cn.ichiyo.moreenchantments.Biome.ModWorldGeneration;
 import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
-import cn.ichiyo.moreenchantments.Items.EnchantmentBookGuide;
-import cn.ichiyo.moreenchantments.Items.HealthBox;
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import cn.ichiyo.moreenchantments.Items.ModItemGroup;
 import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
@@ -20,7 +17,6 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -49,7 +45,6 @@ public class MoreEnchantments implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        EnchantmentBookGuide.nbtR();
         ItemRegister.register();
         ModEnchantments.registerEnchantments();
         ModItemGroup.register();

@@ -1,5 +1,6 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
+import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -11,9 +12,18 @@ import net.minecraft.entity.LivingEntity;
 
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralTextContent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.util.Formatting;
+
+import java.util.Collection;
 
 
 public class SoulPenetrationEnchantment extends Enchantment {
@@ -43,35 +53,28 @@ public class SoulPenetrationEnchantment extends Enchantment {
         if (user instanceof PlayerEntity && target instanceof LivingEntity) {
 
             float armorValue = 0.0F;
-            LivingEntity targetEntity = (LivingEntity) target;
             ItemStack heldItem = user.getMainHandStack();
             ToolItem toolItem = (ToolItem) heldItem.getItem();
             float attackDamage = toolItem.getMaterial().getAttackDamage() +
                     EnchantmentHelper.getAttackDamage(heldItem, EntityGroup.DEFAULT);
 
-            EntityAttributeInstance attributeInstance = targetEntity.getAttributeInstance(EntityAttributes.GENERIC_ARMOR);
+            EntityAttributeInstance attributeInstance = ((LivingEntity) target).getAttributeInstance(EntityAttributes.GENERIC_ARMOR);
 
             if (attributeInstance != null) {
                 armorValue = (float) attributeInstance.getValue();
-                float damageAttackDamage = attackDamage * 0.1F;
-                float damageIncreasePercentage = 0.0F;
-
-                switch (level) {
-                    case 1:
-                        damageIncreasePercentage = damageAttackDamage * armorValue * 0.1F;
-                        break;
-                    case 2:
-                        damageIncreasePercentage = damageAttackDamage * armorValue * 0.15F;
-                        break;
-                    case 3:
-                        damageIncreasePercentage = damageAttackDamage * armorValue * 0.2F;
-                        break;
-                    case 4:
-                        damageIncreasePercentage = damageAttackDamage * armorValue * 0.25F;
-                        break;
+                if (level == 1) {
+                    float damageIncreasePercentage = attackDamage * armorValue * 0.10F;
+                    target.damage(user.getDamageSources().mobAttack(user), damageIncreasePercentage);
+                } else if (level == 2) {
+                    float damageIncreasePercentage = attackDamage * armorValue * 0.11F;
+                    target.damage(user.getDamageSources().mobAttack(user), damageIncreasePercentage);
+                } else if (level == 3) {
+                    float damageIncreasePercentage = attackDamage * armorValue * 0.12F;
+                    target.damage(user.getDamageSources().mobAttack(user), damageIncreasePercentage);
+                } else if (level == 4) {
+                    float damageIncreasePercentage = attackDamage * armorValue * 0.13F;
+                    target.damage(user.getDamageSources().mobAttack(user), damageIncreasePercentage);
                 }
-                float newHealth = ((LivingEntity) target).getHealth() - damageIncreasePercentage;
-                ((LivingEntity) target).setHealth(newHealth);
             }
         }
     }
