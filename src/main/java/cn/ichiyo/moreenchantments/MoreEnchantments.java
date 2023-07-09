@@ -19,6 +19,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -29,6 +30,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.WorldTickScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +60,6 @@ public class MoreEnchantments implements ModInitializer {
 
                 DamageData.setDamage(damage);
             }
-
             return ActionResult.PASS;
         });
 
@@ -91,6 +92,7 @@ public class MoreEnchantments implements ModInitializer {
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             ItemStack mainHandStack = player.getMainHandStack();
+
             if (EnchantmentHelper.get(mainHandStack).containsKey(ModEnchantments.DIAMOND_LUCK)
                     && DIAMOND_DROP_BLOCKS.contains(state.getBlock())) {
                 int enchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.DIAMOND_LUCK, mainHandStack);
@@ -110,8 +112,6 @@ public class MoreEnchantments implements ModInitializer {
         ServerPlayerEvents.COPY_FROM.register((original, cloned, lossless) -> {
         });
 
-
-
         UseItemCallback.EVENT.register((player, world, hand) -> {
             if (player instanceof ServerPlayerEntity) {
                 ItemStack itemStack = player.getStackInHand(hand);
@@ -120,12 +120,12 @@ public class MoreEnchantments implements ModInitializer {
             }
             return TypedActionResult.pass(player.getStackInHand(hand));
         });
+
         ServerTickEvents.START_WORLD_TICK.register(world -> {
 
             List<ServerPlayerEntity> players = world.getPlayers();
             for (ServerPlayerEntity player : players) {
                 updatePlayerHealth(player);
-                break;
             }
         });
     }
@@ -145,6 +145,7 @@ public class MoreEnchantments implements ModInitializer {
                 }
             }
         }
+
         if (isTrue) {
             player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(ADD_HEALTH);
         } else {
@@ -156,7 +157,6 @@ public class MoreEnchantments implements ModInitializer {
             }
         }
     }
-
 
     private static void dropDiamond(World world, BlockPos pos) {
         ItemStack diamondStack = new ItemStack(Items.DIAMOND);

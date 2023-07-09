@@ -3,6 +3,8 @@ package cn.ichiyo.moreenchantments.Items;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.*;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -48,17 +50,10 @@ public class HealthBox extends Item {
             EntityAttributeInstance maxHealthAttribute = attributes.getCustomInstance(MAX_HEALTH_ATTRIBUTE);
 
             if (maxHealthAttribute != null) {
-                double maxHealthModifier = maxHealthAttribute.getBaseValue() + 1.0;
-                double currentHealth = user.getHealth();
-                double maxHealth = user.getMaxHealth();
-                double restoredHealth = currentHealth * (maxHealthModifier / maxHealth);
-                double newMaxHealth = maxHealth + 1.0;
-
-                maxHealthAttribute.setBaseValue(newMaxHealth);
-                user.setHealth((float) Math.min(restoredHealth, newMaxHealth));
-
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,3, 8, false,false));
                 ItemStack heldItem = user.getStackInHand(hand);
                 heldItem.decrement(1);
+                user.getItemCooldownManager().set(this, 10);
             }
         }
 
