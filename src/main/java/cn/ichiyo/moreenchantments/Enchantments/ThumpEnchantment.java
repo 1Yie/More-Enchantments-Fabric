@@ -8,8 +8,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
-public class FrostSlownessEnchantment extends Enchantment {
-    protected FrostSlownessEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
+public class ThumpEnchantment extends Enchantment {
+    protected ThumpEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] slotTypes) {
         super(weight, target, slotTypes);
     }
 

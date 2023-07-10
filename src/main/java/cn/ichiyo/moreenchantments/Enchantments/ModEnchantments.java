@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
     public static final Identifier LIFE_STEAL_ID = new Identifier(MoreEnchantments.MOD_ID, "life_steal");
-    public static final Identifier FROST_SLOWNESS_ID = new Identifier(MoreEnchantments.MOD_ID, "frost_slowness");
+    public static final Identifier THUMP_ID = new Identifier(MoreEnchantments.MOD_ID, "thump");
     public static final Identifier SATURATION_ID = new Identifier(MoreEnchantments.MOD_ID, "saturation");
     public static final Identifier SOUL_PENETRATION_ID = new Identifier(MoreEnchantments.MOD_ID,"soul_penetration");
     public static final Identifier DISARM_ID = new Identifier(MoreEnchantments.MOD_ID, "disarm");
@@ -20,7 +20,7 @@ public class ModEnchantments {
 
     public static final Enchantment LIFE_STEAL = new LifeStealEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
-    public static final Enchantment FROST_SLOWNESS = new FrostSlownessEnchantment(Enchantment.Rarity.RARE,
+    public static final Enchantment THUMP = new ThumpEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     public static final Enchantment SATURATION = new SaturationEnchantment(Enchantment.Rarity.RARE,
             EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
@@ -37,7 +37,7 @@ public class ModEnchantments {
 
     public static void registerEnchantments() {
         Registry.register(Registries.ENCHANTMENT, LIFE_STEAL_ID, LIFE_STEAL);
-        Registry.register(Registries.ENCHANTMENT, FROST_SLOWNESS_ID, FROST_SLOWNESS);
+        Registry.register(Registries.ENCHANTMENT, THUMP_ID, THUMP);
         Registry.register(Registries.ENCHANTMENT, SATURATION_ID, SATURATION);
         Registry.register(Registries.ENCHANTMENT, SOUL_PENETRATION_ID, SOUL_PENETRATION);
         Registry.register(Registries.ENCHANTMENT, DISARM_ID, DISARM);
