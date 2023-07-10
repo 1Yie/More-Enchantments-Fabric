@@ -16,5 +16,8 @@
 
   "item.more_enchantments.double_jump_stick.tooltip_1": "Stand on one foot and take off in place!",
   "item.more_enchantments.double_jump_stick.tooltip_2": "Right-click to use the held item after jumping",
-  "item.more_enchantments.double_jump_stick.tooltip_3": "Immune to fall damage while holding this item"
+  "item.more_enchantments.double_jump_stick.tooltip_3": "Immune to fall damage while holding this item",
+  "item.more_enchantments.health_box.tooltip_1": "Right-click to restore health",
+
+  "block.more_enchantments.health_box_ore.tooltip_1": "A mineral that provides a container for the heart"
 }
