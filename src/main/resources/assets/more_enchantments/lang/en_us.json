@@ -8,9 +8,11 @@
   "enchantment.more_enchantments.diamond_luck": "Diamonds Are Everywhere",
   "enchantment.more_enchantments.health_boost_armor": "Full Of Vigour",
 
-
   "item.more_enchantments.double_jump_stick": "Jump Stick",
+  "item.more_enchantments.health_box":"Health Box",
 
+
+  "block.more_enchantments.health_box_ore": "Health Box Ore",
 
   "item.more_enchantments.double_jump_stick.tooltip_1": "Stand on one foot and take off in place!",
   "item.more_enchantments.double_jump_stick.tooltip_2": "Right-click to use the held item after jumping",

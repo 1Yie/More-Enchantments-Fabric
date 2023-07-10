@@ -18,7 +18,7 @@
   "item.more_enchantments.double_jump_stick.tooltip_1": "左脚踩右脚原地起飞！",
   "item.more_enchantments.double_jump_stick.tooltip_2": "跳跃后手持物品右键使用",
   "item.more_enchantments.double_jump_stick.tooltip_3": "手持时免疫摔落伤害",
-  "item.more_enchantments.health_box.tooltip_1": "(未完成)使用该物品增加最大生命值一格上限",
+  "item.more_enchantments.health_box.tooltip_1": "右键使用恢复血量",
 
-  "block.more_enchantments.health_box_ore.tooltip_1": "(未完成)提供心之容器的一种矿石"
+  "block.more_enchantments.health_box_ore.tooltip_1": "提供心之容器的一种矿石"
 }

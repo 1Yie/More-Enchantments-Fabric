@@ -50,7 +50,7 @@ public class HealthBox extends Item {
             EntityAttributeInstance maxHealthAttribute = attributes.getCustomInstance(MAX_HEALTH_ATTRIBUTE);
 
             if (maxHealthAttribute != null) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,3, 8, false,false));
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3, 8, false,false));
                 ItemStack heldItem = user.getStackInHand(hand);
                 heldItem.decrement(1);
                 user.getItemCooldownManager().set(this, 10);

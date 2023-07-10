@@ -1,6 +1,7 @@
 package cn.ichiyo.moreenchantments;
 
 import cn.ichiyo.moreenchantments.Biome.ModWorldGeneration;
+import cn.ichiyo.moreenchantments.Blocks.ModBlocks;
 import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
@@ -17,9 +18,9 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -30,11 +31,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.tick.WorldTickScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -63,17 +64,17 @@ public class MoreEnchantments implements ModInitializer {
             return ActionResult.PASS;
         });
 
-        // iron
+        // Iron
         DIAMOND_DROP_BLOCKS.add(Blocks.IRON_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_IRON_ORE);
-        // coal
+        // Coal
         DIAMOND_DROP_BLOCKS.add(Blocks.COAL_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_COAL_ORE);
-        // gold
+        // Gold
         DIAMOND_DROP_BLOCKS.add(Blocks.GOLD_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_GOLD_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_GOLD_ORE);
-        // diamond
+        // Diamond
         DIAMOND_DROP_BLOCKS.add(Blocks.DIAMOND_ORE);
         DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_DIAMOND_ORE);
         // Copper
@@ -89,6 +90,12 @@ public class MoreEnchantments implements ModInitializer {
         DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_QUARTZ_ORE);
         // Ancient Debris
         DIAMOND_DROP_BLOCKS.add(Blocks.ANCIENT_DEBRIS);
+        // Redstone
+        DIAMOND_DROP_BLOCKS.add(Blocks.REDSTONE_ORE);
+        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_REDSTONE_ORE);
+
+        // Mod Blocks
+        DIAMOND_DROP_BLOCKS.add(ModBlocks.HEALTH_BOX_ORE);
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             ItemStack mainHandStack = player.getMainHandStack();
@@ -97,11 +104,24 @@ public class MoreEnchantments implements ModInitializer {
                     && DIAMOND_DROP_BLOCKS.contains(state.getBlock())) {
                 int enchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.DIAMOND_LUCK, mainHandStack);
 
+                int enchantLuckyLevel = EnchantmentHelper.getLevel(Enchantments.FORTUNE, mainHandStack);
+
                 Random random = new Random();
                 int isTrue = 1;
-                int tag = random.nextInt(50 - (enchantmentLevel * 10)) + 1;
-                if (isTrue == tag) {
+                int tag = random.nextInt(((50 - enchantLuckyLevel) - (enchantmentLevel * 10))) + 1;
+                System.out.println("tag" + tag);
+                if (isTrue == tag ) {
                     dropDiamond(world, pos);
+                    int dropTag = random.nextInt((10 - (enchantLuckyLevel * 2))) + 1;
+                    System.out.println("dropTag" + dropTag);
+                    if (dropTag == isTrue && enchantLuckyLevel != 0) {
+                        int luckyTag = random.nextInt((8 - (enchantLuckyLevel * 2))) + 1;
+                        System.out.println("luckyTag" + luckyTag);
+                        dropDiamond(world, pos);
+                        if (luckyTag == isTrue) {
+                            dropDiamond(world, pos);
+                        }
+                    }
                 }
             }
         });
@@ -159,7 +179,9 @@ public class MoreEnchantments implements ModInitializer {
     }
 
     private static void dropDiamond(World world, BlockPos pos) {
+
         ItemStack diamondStack = new ItemStack(Items.DIAMOND);
+
         net.minecraft.entity.ItemEntity itemEntity = new net.minecraft.entity.ItemEntity(world,
                 pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, diamondStack);
         world.spawnEntity(itemEntity);

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "more_enchantments:health_boost_armor"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
+        },
+        {
+          "rolls": 3.0
+        }
+      ],
+      "random_sequence": "minecraft:chests/simple_dungeon"
+    }
+  ]
+}
