@@ -1,7 +1,7 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
 
-import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
+import cn.ichiyo.moreenchantments.Enchantments.Implementer.DamageData;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;

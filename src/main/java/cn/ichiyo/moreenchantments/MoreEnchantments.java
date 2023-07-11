@@ -2,7 +2,7 @@ package cn.ichiyo.moreenchantments;
 
 import cn.ichiyo.moreenchantments.Biome.ModWorldGeneration;
 import cn.ichiyo.moreenchantments.Blocks.ModBlocks;
-import cn.ichiyo.moreenchantments.Enchantments.ModInitializer.DamageData;
+import cn.ichiyo.moreenchantments.Enchantments.Implementer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -44,6 +43,8 @@ public class MoreEnchantments implements ModInitializer {
     public static final String MOD_ID = "more_enchantments";
 
     private static final Set<Block> DIAMOND_DROP_BLOCKS = new HashSet<>();
+
+    private static final Set<Block> MIDAS_TOUCH_BLOCKS = new HashSet<>();
 
     @Override
     public void onInitialize() {
@@ -64,38 +65,40 @@ public class MoreEnchantments implements ModInitializer {
             return ActionResult.PASS;
         });
 
-        // Iron
-        DIAMOND_DROP_BLOCKS.add(Blocks.IRON_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_IRON_ORE);
-        // Coal
-        DIAMOND_DROP_BLOCKS.add(Blocks.COAL_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_COAL_ORE);
-        // Gold
-        DIAMOND_DROP_BLOCKS.add(Blocks.GOLD_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_GOLD_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_GOLD_ORE);
-        // Diamond
-        DIAMOND_DROP_BLOCKS.add(Blocks.DIAMOND_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_DIAMOND_ORE);
-        // Copper
-        DIAMOND_DROP_BLOCKS.add(Blocks.COPPER_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_COPPER_ORE);
-        // Lapis Lazuli
-        DIAMOND_DROP_BLOCKS.add(Blocks.LAPIS_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_LAPIS_ORE);
-        // Emerald
-        DIAMOND_DROP_BLOCKS.add(Blocks.EMERALD_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_EMERALD_ORE);
-        // Nether Quartz
-        DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_QUARTZ_ORE);
-        // Ancient Debris
-        DIAMOND_DROP_BLOCKS.add(Blocks.ANCIENT_DEBRIS);
-        // Redstone
-        DIAMOND_DROP_BLOCKS.add(Blocks.REDSTONE_ORE);
-        DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_REDSTONE_ORE);
+        {
+            // Iron
+            DIAMOND_DROP_BLOCKS.add(Blocks.IRON_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_IRON_ORE);
+            // Coal
+            DIAMOND_DROP_BLOCKS.add(Blocks.COAL_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_COAL_ORE);
+            // Gold
+            DIAMOND_DROP_BLOCKS.add(Blocks.GOLD_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_GOLD_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_GOLD_ORE);
+            // Diamond
+            DIAMOND_DROP_BLOCKS.add(Blocks.DIAMOND_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_DIAMOND_ORE);
+            // Copper
+            DIAMOND_DROP_BLOCKS.add(Blocks.COPPER_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_COPPER_ORE);
+            // Lapis Lazuli
+            DIAMOND_DROP_BLOCKS.add(Blocks.LAPIS_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_LAPIS_ORE);
+            // Emerald
+            DIAMOND_DROP_BLOCKS.add(Blocks.EMERALD_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_EMERALD_ORE);
+            // Nether Quartz
+            DIAMOND_DROP_BLOCKS.add(Blocks.NETHER_QUARTZ_ORE);
+            // Ancient Debris
+            DIAMOND_DROP_BLOCKS.add(Blocks.ANCIENT_DEBRIS);
+            // Redstone
+            DIAMOND_DROP_BLOCKS.add(Blocks.REDSTONE_ORE);
+            DIAMOND_DROP_BLOCKS.add(Blocks.DEEPSLATE_REDSTONE_ORE);
 
-        // Mod Blocks
-        DIAMOND_DROP_BLOCKS.add(ModBlocks.HEALTH_BOX_ORE);
+            // Mod Blocks
+            DIAMOND_DROP_BLOCKS.add(ModBlocks.HEALTH_BOX_ORE);
+        }
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             ItemStack mainHandStack = player.getMainHandStack();
@@ -109,14 +112,11 @@ public class MoreEnchantments implements ModInitializer {
                 Random random = new Random();
                 int isTrue = 1;
                 int tag = random.nextInt(((50 - enchantLuckyLevel) - (enchantmentLevel * 10))) + 1;
-                System.out.println("tag" + tag);
                 if (isTrue == tag ) {
                     dropDiamond(world, pos);
                     int dropTag = random.nextInt((10 - (enchantLuckyLevel * 2))) + 1;
-                    System.out.println("dropTag" + dropTag);
                     if (dropTag == isTrue && enchantLuckyLevel != 0) {
                         int luckyTag = random.nextInt((8 - (enchantLuckyLevel * 2))) + 1;
-                        System.out.println("luckyTag" + luckyTag);
                         dropDiamond(world, pos);
                         if (luckyTag == isTrue) {
                             dropDiamond(world, pos);
@@ -126,23 +126,38 @@ public class MoreEnchantments implements ModInitializer {
             }
         });
 
-        ServerPlayerEvents.AFTER_RESPAWN.register((player, oldPlayer, alive) -> {
-        });
+        {
+            MIDAS_TOUCH_BLOCKS.add(Blocks.STONE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.DEEPSLATE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.GRANITE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.DIORITE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.ANDESITE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.CALCITE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.TUFF);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.BLACKSTONE);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.BASALT);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.SMOOTH_BASALT);
+            MIDAS_TOUCH_BLOCKS.add(Blocks.BEDROCK);
+        }
 
-        ServerPlayerEvents.COPY_FROM.register((original, cloned, lossless) -> {
+        PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+            ItemStack mainHandStack = player.getMainHandStack();
+            if (EnchantmentHelper.get(mainHandStack).containsKey(ModEnchantments.MIDAS_TOUCH)
+                    && MIDAS_TOUCH_BLOCKS.contains(state.getBlock())) {
+                Random random = new Random();
+                int isTrue = 1;
+                int tag = random.nextInt(5) + 1;
+                if (tag == isTrue) {
+                    dropGold(world, pos);
+                }
+            }
         });
 
         UseItemCallback.EVENT.register((player, world, hand) -> {
-            if (player instanceof ServerPlayerEntity) {
-                ItemStack itemStack = player.getStackInHand(hand);
-                if (itemStack.getItem() == ItemRegister.HEALTH_BOX) {
-                }
-            }
             return TypedActionResult.pass(player.getStackInHand(hand));
         });
 
         ServerTickEvents.START_WORLD_TICK.register(world -> {
-
             List<ServerPlayerEntity> players = world.getPlayers();
             for (ServerPlayerEntity player : players) {
                 updatePlayerHealth(player);
@@ -179,9 +194,14 @@ public class MoreEnchantments implements ModInitializer {
     }
 
     private static void dropDiamond(World world, BlockPos pos) {
-
         ItemStack diamondStack = new ItemStack(Items.DIAMOND);
+        net.minecraft.entity.ItemEntity itemEntity = new net.minecraft.entity.ItemEntity(world,
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, diamondStack);
+        world.spawnEntity(itemEntity);
+    }
 
+    private static void dropGold(World world, BlockPos pos) {
+        ItemStack diamondStack = new ItemStack(Items.GOLD_NUGGET);
         net.minecraft.entity.ItemEntity itemEntity = new net.minecraft.entity.ItemEntity(world,
                 pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, diamondStack);
         world.spawnEntity(itemEntity);

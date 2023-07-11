@@ -1,4 +1,4 @@
-package cn.ichiyo.moreenchantments.Enchantments.ModInitializer;
+package cn.ichiyo.moreenchantments.Enchantments.Implementer;
 
 public class KeyInputHandler {
     public static final String KEY_CATEGORY_TUTORIAL = "key.category.more_enchantments.tutorial";
