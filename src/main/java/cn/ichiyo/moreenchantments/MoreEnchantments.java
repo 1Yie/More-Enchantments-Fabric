@@ -8,6 +8,7 @@ import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
 import cn.ichiyo.moreenchantments.Items.ModItemGroup;
 import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
+import cn.ichiyo.moreenchantments.Util.ModLootTabModifiers;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -54,6 +55,7 @@ public class MoreEnchantments implements ModInitializer {
         ModItemGroup.register();
         ModBlockRegister.register();
         ModWorldGeneration.generateModWorldGen();
+        ModLootTabModifiers.modLootTabModifiers();
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {

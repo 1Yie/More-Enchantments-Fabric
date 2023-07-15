@@ -22,12 +22,6 @@ import java.util.List;
 
 public class HealthBox extends Item {
 
-    private static final EntityAttributeModifier HEALTH_BOOST_MODIFIER = new EntityAttributeModifier(
-            "max_health_boost",
-            1.0F,
-            EntityAttributeModifier.Operation.ADDITION
-    );
-
     private static final EntityAttribute MAX_HEALTH_ATTRIBUTE = EntityAttributes.GENERIC_MAX_HEALTH;
     public HealthBox(Settings settings) {
         super(settings);

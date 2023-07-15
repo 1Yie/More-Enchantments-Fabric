@@ -1,8 +1,10 @@
 package cn.ichiyo.moreenchantments.Items;
 
+import cn.ichiyo.moreenchantments.Enchantments.DiamondLuckEnchantment;
 import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;

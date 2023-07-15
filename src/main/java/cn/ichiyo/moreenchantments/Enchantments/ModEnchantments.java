@@ -1,9 +1,11 @@
 package cn.ichiyo.moreenchantments.Enchantments;
 
 import cn.ichiyo.moreenchantments.MoreEnchantments;
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
