@@ -16,6 +16,8 @@
 
   "itemgroup.enchantments": "More Enchantments - Affiliated",
 
+  "enchantment.more_enchantments.key.life_steal": "The choice of truth, restore all HP!",
+
   "item.more_enchantments.double_jump_stick.tooltip_1": "Stand on one foot and take off in place!",
   "item.more_enchantments.double_jump_stick.tooltip_2": "Right-click to use the held item after jumping",
   "item.more_enchantments.double_jump_stick.tooltip_3": "Immune to fall damage while holding this item",

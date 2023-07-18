@@ -16,6 +16,8 @@
 
   "itemgroup.enchantments": "更多附魔 - 附属",
 
+  "enchantment.more_enchantments.key.life_steal": "真理之选择，恢复所有HP！",
+
   "item.more_enchantments.double_jump_stick.tooltip_1": "左脚踩右脚原地起飞！",
   "item.more_enchantments.double_jump_stick.tooltip_2": "跳跃后手持物品右键使用",
   "item.more_enchantments.double_jump_stick.tooltip_3": "手持时免疫摔落伤害",

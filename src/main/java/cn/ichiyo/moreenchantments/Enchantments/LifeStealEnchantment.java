@@ -60,7 +60,7 @@ public class LifeStealEnchantment extends Enchantment {
 
                     if (tag == isTrue) {
                         user.heal(10);
-                        user.sendMessage(Text.literal("真理之选择！(恢复所有HP)").formatted(Formatting.DARK_RED));
+                        user.sendMessage(Text.translatable("enchantment.more_enchantments.key.life_steal").formatted(Formatting.DARK_RED));
                     }
 
                 } else if (level == 2) {
@@ -69,7 +69,7 @@ public class LifeStealEnchantment extends Enchantment {
 
                     if (tag == isTrue) {
                         user.heal(10);
-                        user.sendMessage(Text.literal("真理之选择！(恢复所有HP)").formatted(Formatting.DARK_RED));
+                        user.sendMessage(Text.translatable("enchantment.more_enchantments.key.life_steal").formatted(Formatting.DARK_RED));
                     }
 
                 } else if (level == 3) {
@@ -78,7 +78,7 @@ public class LifeStealEnchantment extends Enchantment {
 
                     if (tag == isTrue) {
                         user.heal(10);
-                        user.sendMessage(Text.literal("真理之选择！(恢复所有HP)").formatted(Formatting.DARK_RED));
+                        user.sendMessage(Text.translatable("enchantment.more_enchantments.key.life_steal").formatted(Formatting.DARK_RED));
                     }
                 }
             }
