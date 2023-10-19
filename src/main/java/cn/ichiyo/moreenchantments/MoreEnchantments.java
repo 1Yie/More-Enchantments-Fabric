@@ -6,6 +6,7 @@ import cn.ichiyo.moreenchantments.Enchantments.Implementer.DamageData;
 import cn.ichiyo.moreenchantments.Enchantments.ModEnchantments;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
+import cn.ichiyo.moreenchantments.Items.ModArmor.RegisterArmor;
 import cn.ichiyo.moreenchantments.Items.ModItemGroup;
 import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
 import cn.ichiyo.moreenchantments.Util.ModLootTabModifiers;
@@ -56,6 +57,7 @@ public class MoreEnchantments implements ModInitializer {
         ModBlockRegister.register();
         ModWorldGeneration.generateModWorldGen();
         ModLootTabModifiers.modLootTabModifiers();
+        RegisterArmor.register();
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {

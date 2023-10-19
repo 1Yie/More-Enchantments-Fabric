@@ -1,6 +1,7 @@
 package cn.ichiyo.moreenchantments.Data;
 
 import cn.ichiyo.moreenchantments.Items.ItemRegister;
+import cn.ichiyo.moreenchantments.Items.ModArmor.RegisterArmor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -32,6 +33,34 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .input('T', Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK),
                         FabricRecipeProvider.conditionsFromItem(Items.PHANTOM_MEMBRANE))
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(ItemRegister.DOUBLE_JUMP_ITEM)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, RegisterArmor.DARK_STORY_MATERIAL_HELMET)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("   ")
+                .input('X', ItemRegister.HEALTH_BOX)
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(ItemRegister.DOUBLE_JUMP_ITEM)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, RegisterArmor.DARK_STORY_MATERIAL_CHESTPLATE)
+                .pattern("X X")
+                .pattern("XXX")
+                .pattern("XXX")
+                .input('X', ItemRegister.HEALTH_BOX)
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(ItemRegister.DOUBLE_JUMP_ITEM)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, RegisterArmor.DARK_STORY_MATERIAL_LEGGINGS)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("X X")
+                .input('X', ItemRegister.HEALTH_BOX)
+                .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(ItemRegister.DOUBLE_JUMP_ITEM)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, RegisterArmor.DARK_STORY_MATERIAL_BOOTS)
+                .pattern("   ")
+                .pattern("X X")
+                .pattern("X X")
+                .input('X', ItemRegister.HEALTH_BOX)
                 .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(ItemRegister.DOUBLE_JUMP_ITEM)));
     }
 }

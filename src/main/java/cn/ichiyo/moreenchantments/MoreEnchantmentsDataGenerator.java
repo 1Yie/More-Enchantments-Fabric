@@ -3,10 +3,7 @@ package cn.ichiyo.moreenchantments;
 import cn.ichiyo.moreenchantments.Biome.ModConfiguredFeatures;
 import cn.ichiyo.moreenchantments.Biome.ModPlacedFeatures;
 import cn.ichiyo.moreenchantments.Biome.ModWorldGeneration;
-import cn.ichiyo.moreenchantments.Data.ModLootTabGenerator;
-import cn.ichiyo.moreenchantments.Data.ModModelProvider;
-import cn.ichiyo.moreenchantments.Data.ModRecipeGenerator;
-import cn.ichiyo.moreenchantments.Data.ModWorldGenerator;
+import cn.ichiyo.moreenchantments.Data.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -20,6 +17,7 @@ public class MoreEnchantmentsDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModRecipeGenerator::new);
 		pack.addProvider(ModWorldGenerator::new);
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModItemTagProvider::new);
 	}
 
 	@Override

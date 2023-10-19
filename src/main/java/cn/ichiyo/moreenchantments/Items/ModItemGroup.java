@@ -2,6 +2,7 @@ package cn.ichiyo.moreenchantments.Items;
 
 import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
 import cn.ichiyo.moreenchantments.Blocks.ModBlocks;
+import cn.ichiyo.moreenchantments.Items.ModArmor.RegisterArmor;
 import cn.ichiyo.moreenchantments.MoreEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -21,6 +22,11 @@ public class ModItemGroup {
                         entries.add(ItemRegister.DOUBLE_JUMP_ITEM);
                         entries.add(ItemRegister.HEALTH_BOX);
                         entries.add(ModBlocks.HEALTH_BOX_ORE);
+
+                        entries.add(RegisterArmor.DARK_STORY_MATERIAL_HELMET);
+                        entries.add(RegisterArmor.DARK_STORY_MATERIAL_CHESTPLATE);
+                        entries.add(RegisterArmor.DARK_STORY_MATERIAL_LEGGINGS);
+                        entries.add(RegisterArmor.DARK_STORY_MATERIAL_BOOTS);
                     })
                     .build());
     public static void register() {
