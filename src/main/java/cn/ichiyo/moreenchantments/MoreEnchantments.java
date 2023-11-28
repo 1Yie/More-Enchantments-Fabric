@@ -12,13 +12,13 @@ import cn.ichiyo.moreenchantments.Blocks.ModBlockRegister;
 import cn.ichiyo.moreenchantments.Util.ModLootTabModifiers;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -48,6 +48,8 @@ public class MoreEnchantments implements ModInitializer {
 
     private static final Set<Block> MIDAS_TOUCH_BLOCKS = new HashSet<>();
 
+    private static boolean canRun = false;
+
     @Override
     public void onInitialize() {
 
@@ -58,6 +60,7 @@ public class MoreEnchantments implements ModInitializer {
         ModWorldGeneration.generateModWorldGen();
         ModLootTabModifiers.modLootTabModifiers();
         RegisterArmor.register();
+
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (entity instanceof LivingEntity) {
@@ -116,7 +119,7 @@ public class MoreEnchantments implements ModInitializer {
                 Random random = new Random();
                 int isTrue = 1;
                 int tag = random.nextInt(((50 - enchantLuckyLevel) - (enchantmentLevel * 10))) + 1;
-                if (isTrue == tag ) {
+                if (isTrue == tag) {
                     dropDiamond(world, pos);
                     int dropTag = random.nextInt((10 - (enchantLuckyLevel * 2))) + 1;
                     if (dropTag == isTrue && enchantLuckyLevel != 0) {
@@ -165,12 +168,13 @@ public class MoreEnchantments implements ModInitializer {
             List<ServerPlayerEntity> players = world.getPlayers();
             for (ServerPlayerEntity player : players) {
                 updatePlayerHealth(player);
+                break;
             }
         });
     }
 
     private static void updatePlayerHealth(ServerPlayerEntity player) {
-        boolean isTrue = false;
+        boolean isDefault = false;
         AtomicInteger enchantmentLevel = new AtomicInteger(0);
         double ADD_HEALTH = 0.0F;
         for (ItemStack stack : player.getInventory().armor) {
@@ -178,23 +182,51 @@ public class MoreEnchantments implements ModInitializer {
                 ArmorItem armorItem = (ArmorItem) stack.getItem();
                 int level = EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, stack);
                 if (level > 0) {
-                    isTrue = true;
-                    ADD_HEALTH += 20.0F + (level * 2) * 2;
+                    isDefault = true;
+                    ADD_HEALTH += player.defaultMaxHealth + (level * 2) * 2;
                     enchantmentLevel.set(level);
                 }
             }
         }
 
-        if (isTrue) {
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(ADD_HEALTH);
-        } else {
-            double defaultMaxHealth = 20.0F;
-            player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(defaultMaxHealth);
+        if (isDefault) {
+            Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(ADD_HEALTH);
+        } else
+            Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(player.defaultMaxHealth);
+    }
 
-            if (player.getHealth() > defaultMaxHealth) {
-                player.setHealth((float) defaultMaxHealth);
+    // 获取玩家身上装备的附魔
+    public static List<String> getPlayerEquipmentEnchantmentKeys(PlayerEntity player) {
+        List<String> enchantmentKeys = new ArrayList<>();
+        for (ItemStack itemStack : player.getArmorItems()) {
+            if (!itemStack.isEmpty()) {
+                // 获取物品上的附魔
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(itemStack);
+                for (Enchantment enchantment : enchantments.keySet()) {
+                    String key = enchantment.getTranslationKey(); // 获取附魔的 key 值
+                    enchantmentKeys.add(key);
+                }
             }
         }
+        return enchantmentKeys;
+    }
+
+    /*
+            if (isDefault) {
+                Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(ADD_HEALTH);
+            } else {
+                double defaultMaxHealth = 20.0F;
+                Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(defaultMaxHealth);
+
+                if (player.getHealth() > defaultMaxHealth) {
+                    player.setHealth((float) defaultMaxHealth);
+                }
+            }
+        }
+    */
+    private static boolean isCanRun(boolean bool) {
+        canRun = bool;
+        return false;
     }
 
     private static void dropDiamond(World world, BlockPos pos) {
