@@ -25,9 +25,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
@@ -45,7 +43,6 @@ public class MoreEnchantments implements ModInitializer {
     public static final String MOD_ID = "more_enchantments";
 
     private static final Set<Block> DIAMOND_DROP_BLOCKS = new HashSet<>();
-
     private static final Set<Block> MIDAS_TOUCH_BLOCKS = new HashSet<>();
 
     private static boolean canRun = false;
@@ -120,13 +117,13 @@ public class MoreEnchantments implements ModInitializer {
                 int isTrue = 1;
                 int tag = random.nextInt(((50 - enchantLuckyLevel) - (enchantmentLevel * 10))) + 1;
                 if (isTrue == tag) {
-                    dropDiamond(world, pos);
+                    dropBlocks(world, pos, 0.5, 0.5, 0.5, Items.DIAMOND);
                     int dropTag = random.nextInt((10 - (enchantLuckyLevel * 2))) + 1;
                     if (dropTag == isTrue && enchantLuckyLevel != 0) {
                         int luckyTag = random.nextInt((8 - (enchantLuckyLevel * 2))) + 1;
-                        dropDiamond(world, pos);
+                        dropBlocks(world, pos, 0.5, 0.5, 0.5, Items.DIAMOND);
                         if (luckyTag == isTrue) {
-                            dropDiamond(world, pos);
+                            dropBlocks(world, pos, 0.5, 0.5, 0.5, Items.DIAMOND);
                         }
                     }
                 }
@@ -155,7 +152,7 @@ public class MoreEnchantments implements ModInitializer {
                 int isTrue = 1;
                 int tag = random.nextInt(5) + 1;
                 if (tag == isTrue) {
-                    dropGold(world, pos);
+                    dropBlocks(world, pos, 0.5, 0.5, 0.5, Items.GOLD_NUGGET);
                 }
             }
         });
@@ -168,35 +165,40 @@ public class MoreEnchantments implements ModInitializer {
             List<ServerPlayerEntity> players = world.getPlayers();
             for (ServerPlayerEntity player : players) {
                 updatePlayerHealth(player);
-                break;
             }
         });
     }
 
     private static void updatePlayerHealth(ServerPlayerEntity player) {
-        boolean isDefault = false;
+        boolean hasEnchant = false;
         AtomicInteger enchantmentLevel = new AtomicInteger(0);
         double ADD_HEALTH = 0.0F;
+
         for (ItemStack stack : player.getInventory().armor) {
             if (stack.getItem() instanceof ArmorItem) {
                 ArmorItem armorItem = (ArmorItem) stack.getItem();
                 int level = EnchantmentHelper.getLevel(ModEnchantments.HEALTH_BOOST_ARMOR, stack);
                 if (level > 0) {
-                    isDefault = true;
-                    ADD_HEALTH += player.defaultMaxHealth + (level * 2) * 2;
+                    ADD_HEALTH += level * 2 * 2;
                     enchantmentLevel.set(level);
                 }
+
+                List<String> strings = getPlayerEquipmentEnchantmentKeys(player);
+                hasEnchant = strings.contains("enchantment.more_enchantments.health_boost_armor");
             }
         }
 
-        if (isDefault) {
-            Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(ADD_HEALTH);
-        } else
+        if (hasEnchant) {
+            Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(player.defaultMaxHealth + ADD_HEALTH);
+        }
+
+        if (player.getMaxHealth() > player.defaultMaxHealth && !hasEnchant) {
             Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(player.defaultMaxHealth);
+        }
     }
 
     // 获取玩家身上装备的附魔
-    public static List<String> getPlayerEquipmentEnchantmentKeys(PlayerEntity player) {
+    private static List<String> getPlayerEquipmentEnchantmentKeys(PlayerEntity player) {
         List<String> enchantmentKeys = new ArrayList<>();
         for (ItemStack itemStack : player.getArmorItems()) {
             if (!itemStack.isEmpty()) {
@@ -211,35 +213,11 @@ public class MoreEnchantments implements ModInitializer {
         return enchantmentKeys;
     }
 
-    /*
-            if (isDefault) {
-                Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(ADD_HEALTH);
-            } else {
-                double defaultMaxHealth = 20.0F;
-                Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(defaultMaxHealth);
 
-                if (player.getHealth() > defaultMaxHealth) {
-                    player.setHealth((float) defaultMaxHealth);
-                }
-            }
-        }
-    */
-    private static boolean isCanRun(boolean bool) {
-        canRun = bool;
-        return false;
-    }
-
-    private static void dropDiamond(World world, BlockPos pos) {
-        ItemStack diamondStack = new ItemStack(Items.DIAMOND);
+    private static void dropBlocks(World world, BlockPos pos, double x, double y, double z, Item item) {
+        ItemStack diamondStack = new ItemStack(item);
         net.minecraft.entity.ItemEntity itemEntity = new net.minecraft.entity.ItemEntity(world,
-                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, diamondStack);
-        world.spawnEntity(itemEntity);
-    }
-
-    private static void dropGold(World world, BlockPos pos) {
-        ItemStack diamondStack = new ItemStack(Items.GOLD_NUGGET);
-        net.minecraft.entity.ItemEntity itemEntity = new net.minecraft.entity.ItemEntity(world,
-                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, diamondStack);
+                pos.getX() + x, pos.getY() + y, pos.getZ() + z, diamondStack);
         world.spawnEntity(itemEntity);
     }
 
