@@ -27,6 +27,11 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ItemRegister.HEALTH_BOX, Models.GENERATED);
         itemModelGenerator.register(ItemRegister.DOUBLE_JUMP_ITEM, Models.HANDHELD);
 
+        itemModelGenerator.register(RegisterArmor.DARK_STORY_MATERIAL_HELMET,Models.GENERATED);
+        itemModelGenerator.register(RegisterArmor.DARK_STORY_MATERIAL_CHESTPLATE,Models.GENERATED);
+        itemModelGenerator.register(RegisterArmor.DARK_STORY_MATERIAL_LEGGINGS,Models.GENERATED);
+        itemModelGenerator.register(RegisterArmor.DARK_STORY_MATERIAL_BOOTS,Models.GENERATED);
+
         itemModelGenerator.registerArmor((ArmorItem) RegisterArmor.DARK_STORY_MATERIAL_HELMET);
         itemModelGenerator.registerArmor((ArmorItem) RegisterArmor.DARK_STORY_MATERIAL_CHESTPLATE);
         itemModelGenerator.registerArmor((ArmorItem) RegisterArmor.DARK_STORY_MATERIAL_LEGGINGS);
